@@ -25,7 +25,7 @@ function convertToRoman(num) {
   for(const [key,value] of Object.entries(obj)){
     //loop: curNum is bigger than value then key (roman) will be added to result and curNum has new value 
     while(curNum >= value){
-      result = result + key;
+      result += key;
       curNum -= value;
     }
   };
