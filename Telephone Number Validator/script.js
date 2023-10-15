@@ -13,10 +13,12 @@ The user may fill out the form field any way they choose as long as it has the f
 */
 
 function telephoneCheck(str) {
-  //removing all non-digit characters from the string 
-  const transformedStr = str.replace(/[^\d]/g,'');
-  //check string length
+  const regEx = /^(1\s?)?(\d{3}|\(\d{3}\))[\-\s]?\d{3}[\-\s]?(\d{4})$/;
   
+  //this regEx covers all the mentioned case 
+  //use https://regex101.com/ to build and test regEx
+  
+  return regEx.test(str);
 }
 
 telephoneCheck("555-555-5555");
