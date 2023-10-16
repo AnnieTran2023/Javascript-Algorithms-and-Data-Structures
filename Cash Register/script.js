@@ -27,16 +27,22 @@ const amountCurrency = {
 function checkCashRegister(price, cash, cid) {
   let status = '';
   let change = [];
+  
+//calculate change
   let changeSum = (cash - price) * 100;  
   let copyChangeSum = changeSum;
+  
+//get only arrays from cid that has value different from 0 then reverse to have descending value
   const filteredCid = cid.filter(arr => arr[1] !== 0).reverse();
   let cidSum = 0;
-
+  
+//loop over filteredCid array
   for (let [currency, value] of filteredCid) {
     let amount = 0;
     let currencyValue = amountCurrency[currency]; 
     let available = value * 100;
     cidSum += available;
+    //condition gets the currency when change is larger than currencyValue and available from filterCid > 0
     while (changeSum >= currencyValue && available > 0) {
       amount += currencyValue;
       changeSum -= currencyValue;
@@ -51,6 +57,7 @@ function checkCashRegister(price, cash, cid) {
     status = 'INSUFFICIENT_FUNDS';
     change = [];
   } else if (changeSum === 0) {
+    //condition if change from the beginning is equal to cidSum then status is closed
     if (copyChangeSum === cidSum) {
       status = 'CLOSED';
       change = [...cid];
